@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Time</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #FFE4CC; /* 更浅的橙色背景 */
+            color: #E67E22; /* 更柔和的橙色文字 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .screen {
+            display: none;
+            padding: 40px 30px;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        /* 开始页样式 */
+        .start-content {
+            text-align: center;
+        }
+
+        .start-content h1 {
+            color: #E67E22;
+            margin-bottom: 15px;
+            font-size: 2.5rem;
+        }
+
+        .start-content p {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.2rem;
+        }
+
+        .btn {
+            background-color: #E67E22;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #D35400;
+        }
+
+        /* 题目页样式 */
+        .quiz-header {
+            margin-bottom: 30px;
+        }
+
+        .progress-container {
+            height: 8px;
+            background-color: #FBEEE6;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: #E67E22;
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        .quiz-info {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 500;
+            color: #E67E22;
+        }
+
+        .quiz-content h2 {
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+            line-height: 1.4;
+            color: #E67E22;
+        }
+
+        .answers-container {
+            display: grid;
+            gap: 12px;
+        }
+
+        .answer-btn {
+            padding: 15px;
+            border: 2px solid #FBEEE6;
+            border-radius: 8px;
+            background-color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+            color: #E67E22;
+        }
+
+        .answer-btn:hover {
+            border-color: #E67E22;
+            background-color: #FFF5EB;
+        }
+
+        .answer-btn.correct {
+            background-color: #E8F5E9;
+            border-color: #4CAF50;
+            color: #2E7D32;
+        }
+
+        .answer-btn.incorrect {
+            background-color: #FFEBEE;
+            border-color: #F44336;
+            color: #C62828;
+        }
+
+        /* 结果页样式 */
+        .result-content {
+            text-align: center;
+        }
+
+        .result-content h2 {
+            color: #E67E22;
+            margin-bottom: 20px;
+        }
+
+        .result-content p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            color: #E67E22;
+        }
+
+        #result-message {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin: 25px 0;
+            color: #E67E22;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 480px) {
+            .container {
+                border-radius: 8px;
+            }
+            
+            .screen {
+                padding: 30px 20px;
+            }
+            
+            .start-content h1 {
+                font-size: 2rem;
+            }
+            
+            .quiz-content h2 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 开始页 -->
+        <div class="screen active" id="start-screen">
+            <div class="start-content">
+                <h1>Quiz Time!</h1>
+                <p>Test your knowledge with these fun questions</p>
+                <button id="start-btn" class="btn">Start Quiz</button>
+            </div>
+        </div>
+        
+        <!-- 题目页 -->
+        <div class="screen" id="quiz-screen">
+            <div class="quiz-header">
+                <div class="progress-container">
+                    <div id="progress" class="progress-bar"></div>
+                </div>
+                <div class="quiz-info">
+                    <span>Question <span id="current-question">1</span> of <span id="total-questions">5</span></span>
+                    <span>Score: <span id="score">0</span></span>
+                </div>
+            </div>
+            <div class="quiz-content">
+                <h2 id="question-text">What is the capital of France?</h2>
+                <div id="answers-container" class="answers-container">
+                    <!-- 答案按钮将通过JS动态生成 -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- 结果页 -->
+        <div class="screen" id="result-screen">
+            <div class="result-content">
+                <h2>Quiz Results</h2>
+                <p>You scored <span id="final-score">0</span> out of <span id="max-score">5</span></p>
+                <p id="result-message">Keep studying! You'll get better!</p>
+                <button id="restart-btn" class="btn">Restart Quiz</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // DOM Elements
+        const startScreen = document.getElementById("start-screen");
+        const quizScreen = document.getElementById("quiz-screen");
+        const resultScreen = document.getElementById("result-screen");
+        const startButton = document.getElementById("start-btn");
+        const questionText = document.getElementById("question-text");
+        const answersContainer = document.getElementById("answers-container");
+        const currentQuestionSpan = document.getElementById("current-question");
+        const totalQuestionsSpan = document.getElementById("total-questions");
+        const scoreSpan = document.getElementById("score");
+        const finalScoreSpan = document.getElementById("final-score");
+        const maxScoreSpan = document.getElementById("max-score");
+        const resultMessage = document.getElementById("result-message");
+        const restartButton = document.getElementById("restart-btn");
+        const progressBar = document.getElementById("progress");
+
+        // 题目数组
+        const quizQuestions = [
+            {
+                question: "What is the capital of France?",
+                answers: [
+                    { text: "London", correct: false },
+                    { text: "Berlin", correct: false },
+                    { text: "Paris", correct: true },
+                    { text: "Madrid", correct: false },
+                ],
+            },
+            {
+                question: "Which planet is known as the Red Planet?",
+                answers: [
+                    { text: "Venus", correct: false },
+                    { text: "Mars", correct: true },
+                    { text: "Jupiter", correct: false },
+                    { text: "Saturn", correct: false },
+                ],
+            },
+            {
+                question: "What is the largest ocean on Earth?",
+                answers: [
+                    { text: "Atlantic Ocean", correct: false },
+                    { text: "Indian Ocean", correct: false },
+                    { text: "Arctic Ocean", correct: false },
+                    { text: "Pacific Ocean", correct: true },
+                ],
+            },
+            {
+                question: "Which of these is NOT a programming language?",
+                answers: [
+                    { text: "Java", correct: false },
+                    { text: "Python", correct: false },
+                    { text: "Banana", correct: true },
+                    { text: "JavaScript", correct: false },
+                ],
+            },
+            {
+                question: "What is the chemical symbol for gold?",
+                answers: [
+                    { text: "Go", correct: false },
+                    { text: "Gd", correct: false },
+                    { text: "Au", correct: true },
+                    { text: "Ag", correct: false },
+                ],
+            },
+        ];
+
+        // QUIZ STATE VARS
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let answersDisabled = false;
+
+        // 初始化
+        totalQuestionsSpan.textContent = quizQuestions.length;
+        maxScoreSpan.textContent = quizQuestions.length;
+
+        // 事件监听器
+        startButton.addEventListener("click", startQuiz);
+        restartButton.addEventListener("click", restartQuiz);
+
+        // 开始测验
+        function startQuiz() {
+            // 重置变量
+            currentQuestionIndex = 0;
+            score = 0;
+            scoreSpan.textContent = 0;
+            
+            // 切换屏幕
+            startScreen.classList.remove("active");
+            quizScreen.classList.add("active");
+            
+            // 显示第一个问题
+            showQuestion();
+        }
+
+        // 显示问题
+        function showQuestion() {
+            // 重置状态
+            answersDisabled = false;
+            const currentQuestion = quizQuestions[currentQuestionIndex];
+            currentQuestionSpan.textContent = currentQuestionIndex + 1;
+            
+            // 更新进度条
+            const progressPercent = ((currentQuestionIndex) / quizQuestions.length) * 100;
+            progressBar.style.width = progressPercent + "%";
+            
+            // 设置问题文本
+            questionText.textContent = currentQuestion.question;
+            
+            // 清空答案容器
+            answersContainer.innerHTML = "";
+            
+            // 创建答案按钮
+            currentQuestion.answers.forEach((answer) => {
+                const button = document.createElement("button");
+                button.textContent = answer.text;
+                button.classList.add("answer-btn");
+                
+                // 存储正确答案信息
+                button.dataset.correct = answer.correct;
+                button.addEventListener("click", selectAnswer);
+                answersContainer.appendChild(button);
+            });
+        }
+
+        // 选择答案
+        function selectAnswer(event) {
+            // 优化检查
+            if (answersDisabled) return;
+            answersDisabled = true;
+            
+            const selectedButton = event.target;
+            const isCorrect = selectedButton.dataset.correct === "true";
+            
+            // 显示正确答案和错误答案
+            Array.from(answersContainer.children).forEach((button) => {
+                if (button.dataset.correct === "true") {
+                    button.classList.add("correct");
+                } else if (button === selectedButton && !isCorrect) {
+                    button.classList.add("incorrect");
+                }
+            });
+            
+            // 更新分数
+            if (isCorrect) {
+                score++;
+                scoreSpan.textContent = score;
+            }
+            
+            // 延迟后显示下一题或结果
+            setTimeout(() => {
+                currentQuestionIndex++;
+                // 检查是否还有更多问题或测验结束
+                if (currentQuestionIndex < quizQuestions.length) {
+                    showQuestion();
+                } else {
+                    showResults();
+                }
+            }, 1000);
+        }
+
+        // 显示结果
+        function showResults() {
+            // 切换屏幕
+            quizScreen.classList.remove("active");
+            resultScreen.classList.add("active");
+            
+            // 显示最终分数
+            finalScoreSpan.textContent = score;
+            
+            // 计算百分比并显示相应消息
+            const percentage = (score / quizQuestions.length) * 100;
+            
+            if (percentage === 100) {
+                resultMessage.textContent = "Perfect! You're a genius!";
+            } else if (percentage >= 80) {
+                resultMessage.textContent = "Great job! You know your stuff!";
+            } else if (percentage >= 60) {
+                resultMessage.textContent = "Good effort! Keep learning!";
+            } else if (percentage >= 40) {
+                resultMessage.textContent = "Not bad! Try again to improve!";
+            } else {
+                resultMessage.textContent = "Keep studying! You'll get better!";
+            }
+        }
+
+        // 重新开始测验
+        function restartQuiz() {
+            resultScreen.classList.remove("active");
+            startQuiz();
+        }
+    </script>
+</body>
+</html>

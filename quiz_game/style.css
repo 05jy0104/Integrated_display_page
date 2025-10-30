@@ -1,0 +1,171 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f5f7fa;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 600px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.screen {
+    display: none;
+    padding: 40px 30px;
+}
+
+.screen.active {
+    display: block;
+}
+
+/* 开始页样式 */
+.start-content {
+    text-align: center;
+}
+
+.start-content h1 {
+    color: #4a6ee0;
+    margin-bottom: 15px;
+    font-size: 2.5rem;
+}
+
+.start-content p {
+    color: #666;
+    margin-bottom: 30px;
+    font-size: 1.2rem;
+}
+
+.btn {
+    background-color: #4a6ee0;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #3a5bc7;
+}
+
+/* 题目页样式 */
+.quiz-header {
+    margin-bottom: 30px;
+}
+
+.progress-container {
+    height: 8px;
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: #4a6ee0;
+    width: 0%;
+    transition: width 0.3s;
+}
+
+.quiz-info {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 500;
+}
+
+.quiz-content h2 {
+    margin-bottom: 25px;
+    font-size: 1.5rem;
+    line-height: 1.4;
+}
+
+.answers-container {
+    display: grid;
+    gap: 12px;
+}
+
+.answer-btn {
+    padding: 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: left;
+}
+
+.answer-btn:hover {
+    border-color: #4a6ee0;
+    background-color: #f0f4ff;
+}
+
+.answer-btn.correct {
+    background-color: #e7f7ef;
+    border-color: #4caf50;
+    color: #2e7d32;
+}
+
+.answer-btn.incorrect {
+    background-color: #ffeaea;
+    border-color: #f44336;
+    color: #c62828;
+}
+
+/* 结果页样式 */
+.result-content {
+    text-align: center;
+}
+
+.result-content h2 {
+    color: #4a6ee0;
+    margin-bottom: 20px;
+}
+
+.result-content p {
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+#result-message {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin: 25px 0;
+}
+
+/* 响应式设计 */
+@media (max-width: 480px) {
+    .container {
+        border-radius: 8px;
+    }
+    
+    .screen {
+        padding: 30px 20px;
+    }
+    
+    .start-content h1 {
+        font-size: 2rem;
+    }
+    
+    .quiz-content h2 {
+        font-size: 1.3rem;
+    }
+}
