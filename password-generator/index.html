@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>密码生成器</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Password Generator</h1>
+
+    <!-- 密码显示区 -->
+    <div class="password-box">
+      <input type="text" id="password" readonly />
+      <button id="copy-btn" class="copy-btn" title="复制密码">
+        <i class="far fa-copy"></i>
+      </button>
+    </div>
+
+    <!-- 长度滑块 -->
+    <div class="length-control">
+      <label>Password Length: <span id="length-value">9</span></label>
+      <input type="range" id="length" min="4" max="32" value="9" />
+    </div>
+
+    <!-- 复选框 -->
+    <div class="options">
+      <label><input type="checkbox" id="uppercase" checked /> Include Uppercase</label>
+      <label><input type="checkbox" id="lowercase" checked /> Include Lowercase</label>
+      <label><input type="checkbox" id="numbers" checked /> Include Numbers</label>
+      <label><input type="checkbox" id="symbols" checked /> Include Symbols</label>
+    </div>
+
+    <!-- 生成按钮 -->
+    <button id="generate-btn" class="generate-btn">
+      <i class="fas fa-key"></i> Generate Password
+    </button>
+
+    <!-- 强度指示 -->
+    <div class="strength-container">
+      <div class="strength-header">
+        <span>Password Strength:</span>
+        <span id="strength-label">Medium</span>
+      </div>
+      <div class="strength-bar-wrapper">
+        <div class="strength-bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

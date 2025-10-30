@@ -1,0 +1,214 @@
+/* 简单重置 */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  color: #e2e8f0;
+}
+
+.container {
+  background: rgba(30, 41, 59, 0.9);
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  width: 360px;
+  border: 1px solid rgba(51, 65, 85, 0.5);
+  backdrop-filter: blur(10px);
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #f8fafc;
+  position: relative;
+}
+
+/* 渐变下划线 - 居中显示 */
+h1::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  margin: 8px auto 0;
+  border-radius: 2px;
+}
+
+.password-box {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.password-box input {
+  flex: 1;
+  padding: 10px 12px;
+  font-size: 16px;
+  border: 1px solid #475569;
+  border-radius: 6px 0 0 6px;
+  outline: none;
+  background: #ffffff;
+  color: #1e293b;
+  font-weight: 500;
+}
+
+.password-box input:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
+}
+
+.copy-btn {
+  padding: 0 14px;
+  border: 1px solid #475569;
+  border-left: none;
+  border-radius: 0 6px 6px 0;
+  background: #ffffff;
+  cursor: pointer;
+  color: #64748b;
+  transition: all 0.2s;
+}
+
+/* 复制图标hover效果 - 使用蓝紫色主题色 */
+.copy-btn:hover {
+  color: #667eea;
+  background: #f8fafc;
+}
+
+.length-control {
+  margin-bottom: 20px;
+}
+
+.length-control label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+/* 自定义滑块样式 */
+.length-control input[type="range"] {
+  width: 100%;
+  -webkit-appearance: none;
+  height: 6px;
+  background: #334155;
+  border-radius: 3px;
+  outline: none;
+}
+
+.length-control input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  background: #667eea;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.length-control input[type="range"]::-webkit-slider-thumb:hover {
+  background: #764ba2;
+  transform: scale(1.1);
+}
+
+.options label {
+  display: block;
+  margin-bottom: 10px;
+  cursor: pointer;
+  color: #e2e8f0;
+  transition: color 0.2s;
+}
+
+.options label:hover {
+  color: #f8fafc;
+}
+
+.options input {
+  margin-right: 8px;
+  accent-color: #667eea;
+}
+
+/* 生成按钮 - 蓝紫色渐变效果 */
+.generate-btn {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 15px 0;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.generate-btn:hover {
+  background: linear-gradient(135deg, #5a6fd8, #6a4190);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.generate-btn i {
+  font-size: 14px;
+}
+
+.strength-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.strength-header span:first-child {
+  font-weight: normal;
+  color: #94a3b8;
+}
+
+.strength-header span:last-child {
+  font-weight: bold;
+  color: #f8fafc;
+}
+
+.strength-bar-wrapper {
+  height: 8px;
+  background: #334155;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+/* 强度指示器 - 动态长度和颜色变化 */
+.strength-bar {
+  height: 100%;
+  width: 50%;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+/* 强度指示器颜色 */
+.strength-bar.weak {
+  background: #ef4444;
+  width: 33%;
+}
+
+.strength-bar.medium {
+  background: #f59e0b;
+  width: 66%;
+}
+
+.strength-bar.strong {
+  background: #10b981;
+  width: 100%;
+}
