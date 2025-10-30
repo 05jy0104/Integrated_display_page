@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Finder | 发现美食</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- 顶部导航栏 -->
+        <header class="header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="logo">
+                        <i class="fas fa-utensils"></i>
+                        <span>RecipeFinder</span>
+                    </div>
+                    <div class="header-actions">
+                        <button class="btn-secondary">
+                            <i class="fas fa-heart"></i>
+                            <span>收藏</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- 主内容区 -->
+        <main class="main">
+            <div class="container">
+                <!-- 搜索区域 -->
+                <section class="search-section">
+                    <div class="search-container">
+                        <div class="search-input-wrapper">
+                            <i class="fas fa-search search-icon"></i>
+                            <input type="text" id="search-input" class="search-input" placeholder="搜索菜谱、食材或关键词...">
+                            <button id="search-btn" class="search-btn">
+                                <i class="fas fa-search"></i>
+                                <span>搜索</span>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 错误提示 -->
+                <div id="error-container" class="error-container hidden"></div>
+
+                <!-- 结果标题 -->
+                <h2 id="result-heading" class="result-heading"></h2>
+
+                <!-- 菜谱网格 -->
+                <section class="recipes-section">
+                    <div id="meals" class="meals-grid">
+                        <!-- 初始示例数据 -->
+                        <div class="recipe-card" data-meal-id="52777">
+                            <div class="recipe-image">
+                                <img src="https://www.themealdb.com/images/media/meals/wvqpwt1468339226.jpg" alt="Mediterranean Pasta Salad">
+                                <div class="recipe-overlay">
+                                    <button class="view-recipe-btn">
+                                        <i class="fas fa-eye"></i>
+                                        查看详情
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="recipe-info">
+                                <h3 class="recipe-title">地中海意面沙拉</h3>
+                                <div class="recipe-meta">
+                                    <span class="recipe-category">
+                                        <i class="fas fa-tag"></i>
+                                        海鲜
+                                    </span>
+                                    <span class="recipe-time">
+                                        <i class="fas fa-clock"></i>
+                                        25分钟
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="recipe-card" data-meal-id="53016">
+                            <div class="recipe-image">
+                                <img src="https://www.themealdb.com/images/media/meals/1549542877.jpg" alt="Salmon Avocado Salad">
+                                <div class="recipe-overlay">
+                                    <button class="view-recipe-btn">
+                                        <i class="fas fa-eye"></i>
+                                        查看详情
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="recipe-info">
+                                <h3 class="recipe-title">三文鱼牛油果沙拉</h3>
+                                <div class="recipe-meta">
+                                    <span class="recipe-category">
+                                        <i class="fas fa-tag"></i>
+                                        海鲜
+                                    </span>
+                                    <span class="recipe-time">
+                                        <i class="fas fa-clock"></i>
+                                        20分钟
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="recipe-card" data-meal-id="52956">
+                            <div class="recipe-image">
+                                <img src="https://www.themealdb.com/images/media/meals/k29viq1585565980.jpg" alt="Chicken Quinoa Greek Salad">
+                                <div class="recipe-overlay">
+                                    <button class="view-recipe-btn">
+                                        <i class="fas fa-eye"></i>
+                                        查看详情
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="recipe-info">
+                                <h3 class="recipe-title">鸡肉藜麦希腊沙拉</h3>
+                                <div class="recipe-meta">
+                                    <span class="recipe-category">
+                                        <i class="fas fa-tag"></i>
+                                        鸡肉
+                                    </span>
+                                    <span class="recipe-time">
+                                        <i class="fas fa-clock"></i>
+                                        30分钟
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- 菜谱详情模态框 -->
+        <div id="meal-details" class="modal-overlay hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button id="back-btn" class="close-btn">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- 初始示例数据 -->
+                    <div class="recipe-detail">
+                        <div class="recipe-hero">
+                            <img src="https://www.themealdb.com/images/media/meals/wvqpwt1468339226.jpg" alt="Mediterranean Pasta Salad" class="recipe-detail-img">
+                            <div class="recipe-header">
+                                <h1 class="recipe-detail-title">地中海意面沙拉</h1>
+                                <div class="recipe-tags">
+                                    <span class="tag category-tag">
+                                        <i class="fas fa-tag"></i>
+                                        海鲜
+                                    </span>
+                                    <span class="tag difficulty-tag">
+                                        <i class="fas fa-signal"></i>
+                                        简单
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="recipe-content">
+                            <div class="ingredients-section">
+                                <h2 class="section-title">
+                                    <i class="fas fa-shopping-basket"></i>
+                                    食材清单
+                                </h2>
+                                <ul class="ingredients-list">
+                                    <li>
+                                        <i class="fas fa-check-circle"></i>
+                                        <span class="ingredient">200g 马苏里拉奶酪球</span>
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-check-circle"></i>
+                                        <span class="ingredient">250g 小番茄</span>
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-check-circle"></i>
+                                        <span class="ingredient">1束 新鲜罗勒</span>
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-check-circle"></i>
+                                        <span class="ingredient">350g 蝴蝶面</span>
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-check-circle"></i>
+                                        <span class="ingredient">3汤匙 特级初榨橄榄油</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="instructions-section">
+                                <h2 class="section-title">
+                                    <i class="fas fa-list-ol"></i>
+                                    制作步骤
+                                </h2>
+                                <div class="instructions">
+                                    <p>将一大锅盐水煮沸。加入意大利面，搅拌一次，煮约10分钟或按照包装说明。同时，清洗番茄并切成四分之一。切片橄榄。清洗罗勒。留几片完整的罗勒叶作为装饰，撕碎其余的。沥干马苏里拉奶酪并切成小块。意大利面煮熟后，沥干并冷却。将意大利面与番茄、橄榄、马苏里拉奶酪、罗勒和金枪鱼混合。将橄榄油与盐和胡椒搅拌，然后拌入意大利面沙拉中。用预留的罗勒叶装饰即可上桌。</p>
+                                </div>
+                            </div>
+
+                            <div class="recipe-actions">
+                                <a href="https://www.youtube.com/watch?v=e52IL8zYmaE" target="_blank" class="action-btn youtube-btn">
+                                    <i class="fab fa-youtube"></i>
+                                    观看视频教程
+                                </a>
+                                <button class="action-btn save-btn">
+                                    <i class="fas fa-heart"></i>
+                                    收藏菜谱
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 页脚 -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-info">
+                        <div class="footer-logo">
+                            <i class="fas fa-utensils"></i>
+                            RecipeFinder
+                        </div>
+                        <p class="footer-description">
+                            发现来自世界各地的美味菜谱，让烹饪变得简单有趣
+                        </p>
+                    </div>
+                    <div class="footer-links">
+                        <div class="footer-section">
+                            <h4>数据来源</h4>
+                            <p>TheMealDB API</p>
+                        </div>
+                        <div class="footer-section">
+                            <h4>技术支持</h4>
+                            <p>HTML5 + CSS3 + JavaScript</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2024 RecipeFinder. 保留所有权利。</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
